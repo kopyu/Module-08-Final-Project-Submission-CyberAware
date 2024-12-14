@@ -83,16 +83,22 @@ class QuizApp:
         password = self.passwordEntry.get()  # Get the password entered
         specialCharacters = "!@#$%^&*()-_=+[]{}|;:',.<>?/`~"  # Set of special characters
 
-        # Check the password strength
-        if len(password) < 8:
+        # List of common weak passwords to check against
+        weakPasswords = ["password", "123456", "qwerty", "12345678", "abc123", "password123", "welcome", "letmein"]
+
+        # Check if the password is in the list of weak passwords
+        if password.lower() in weakPasswords:
+            messagebox.showinfo("Password Strength", "Weak password. It's a common weak password.")
+        elif len(password) < 8:
             messagebox.showinfo("Password Strength", "Weak password. It should be at least 8 characters long.")
         elif (any(char.isdigit() for char in password) and
-              any(char.isalpha() for char in password) and
-              any(char.isupper() for char in password) and
-              any(char in specialCharacters for char in password)):
+            any(char.isalpha() for char in password) and
+            any(char.isupper() for char in password) and
+            any(char in specialCharacters for char in password)):
             messagebox.showinfo("Password Strength", "Strong password.")
         else:
             messagebox.showinfo("Password Strength", "Medium password. It should include a capital letter, numbers, and at least one special character.")
+
 
     # End the program and close the window
     def endProgram(self):
